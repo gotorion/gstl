@@ -42,7 +42,7 @@ inline void destroy(ForwardIterator first, ForwardIterator last, T*) {
 template <typename ForwarIterator>
 inline void destroy(ForwarIterator first, ForwarIterator last) {
   // TODO:萃取出迭代器中值的类型
-  destroy(first, last, ValueType);
+  destroy(first, last, type_traits<ForwarIterator>::value_type);
 }
 
 };  // namespace gotostl
