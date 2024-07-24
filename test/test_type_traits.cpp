@@ -37,4 +37,10 @@ TEST(TestTypeTraits, ConditionalFalse) {
   EXPECT_TRUE(compare);
 }
 
+TEST(TestTypeTraits, RemoveCV) {
+  bool is_same =
+      gotostl::is_same_v<int, gotostl::remove_cv<int const volatile>::type>;
+  EXPECT_TRUE(is_same);
+}
+
 }  // namespace test_goto_stl

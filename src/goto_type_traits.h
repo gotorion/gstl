@@ -238,6 +238,32 @@ struct remove_reference<T&&> {
 };
 
 template <typename T>
+struct remove_volatile {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_volatile<T volatile> {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_const {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_const<T const> {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_cv {
+  typedef typename  // must have typename here
+      remove_const<typename remove_volatile<T>::type>::type type;
+};
+
+template <typename T>
 using remove_reference_t = typename remove_reference<T>::type;
 
 template <bool, typename T1, typename T2>
