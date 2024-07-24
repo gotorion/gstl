@@ -221,5 +221,23 @@ struct is_same<T, T> {
 
 template <typename T1, typename T2>
 constexpr bool is_same_v = is_same<T1, T2>::value;
+
+template <typename T>
+struct remove_reference {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_reference<T&> {
+  typedef T type;
+};
+
+template <typename T>
+struct remove_reference<T&&> {
+  typedef T type;
+};
+
+template <typename T>
+using remove_reference_t = typename remove_reference<T>::type;  
 };  // namespace gotostl
 #endif

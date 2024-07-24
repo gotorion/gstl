@@ -15,4 +15,14 @@ TEST(TestTypeTraits, CharIsTrivialConstructable) {
   EXPECT_TRUE(compare_type);
 }
 
+TEST(TestTypeTraits, RemoveReference) {
+  bool is_removed = gotostl::is_same_v<int, gotostl::remove_reference_t<int&>>;
+  EXPECT_TRUE(is_removed);
+}
+
+TEST(TestTypeTraits, RemoveRReference) {
+  bool is_removed = gotostl::is_same_v<int, gotostl::remove_reference_t<int&&>>;
+  EXPECT_TRUE(is_removed);
+}
+
 }  // namespace test_goto_stl
