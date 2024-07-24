@@ -238,6 +238,22 @@ struct remove_reference<T&&> {
 };
 
 template <typename T>
-using remove_reference_t = typename remove_reference<T>::type;  
+using remove_reference_t = typename remove_reference<T>::type;
+
+template <bool, typename T1, typename T2>
+struct conditional;
+
+template <typename T1, typename T2>
+struct conditional<true, T1, T2> {
+  typedef T1 type;
+};
+
+template <typename T1, typename T2>
+struct conditional<false, T1, T2> {
+  typedef T2 type;
+};
+
+template <bool cond, typename T1, typename T2>
+using conditional_t = typename conditional<cond, T1, T2>::type;
 };  // namespace gotostl
 #endif

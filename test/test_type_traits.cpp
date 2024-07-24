@@ -25,4 +25,16 @@ TEST(TestTypeTraits, RemoveRReference) {
   EXPECT_TRUE(is_removed);
 }
 
+TEST(TestTypeTraits, ConditionalTrue) {
+  using t = gotostl::conditional_t<true, int, double>;
+  bool compare = gotostl::is_same_v<int, t>;
+  EXPECT_TRUE(compare);
+}
+
+TEST(TestTypeTraits, ConditionalFalse) {
+  using t = gotostl::conditional_t<false, int, double>;
+  bool compare = gotostl::is_same_v<double, t>;
+  EXPECT_TRUE(compare);
+}
+
 }  // namespace test_goto_stl
