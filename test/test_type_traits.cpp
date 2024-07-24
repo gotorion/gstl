@@ -25,4 +25,22 @@ TEST(TestTypeTraits, RemoveRReference) {
   EXPECT_TRUE(is_removed);
 }
 
+TEST(TestTypeTraits, ConditionalTrue) {
+  using t = gotostl::conditional_t<true, int, double>;
+  bool compare = gotostl::is_same_v<int, t>;
+  EXPECT_TRUE(compare);
+}
+
+TEST(TestTypeTraits, ConditionalFalse) {
+  using t = gotostl::conditional_t<false, int, double>;
+  bool compare = gotostl::is_same_v<double, t>;
+  EXPECT_TRUE(compare);
+}
+
+TEST(TestTypeTraits, RemoveCV) {
+  bool is_same =
+      gotostl::is_same_v<int, gotostl::remove_cv<int const volatile>::type>;
+  EXPECT_TRUE(is_same);
+}
+
 }  // namespace test_goto_stl
