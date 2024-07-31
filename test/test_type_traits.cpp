@@ -43,4 +43,25 @@ TEST(TestTypeTraits, RemoveCV) {
   EXPECT_TRUE(is_same);
 }
 
+TEST(TestTypeTraits, AddRValueReference) {
+  bool is_same =
+      gotostl::is_same_v<int&&, gotostl::add_rvalue_reference_t<int>>;
+  EXPECT_TRUE(is_same);
+}
+
+TEST(TestTypeTraits, Move) {
+  int val = 10;
+  bool is_same = gotostl::is_same_v<int&&, decltype(gotostl::move(val))>;
+  EXPECT_TRUE(is_same);
+}
+
+TEST(TestTypeTraits, ForwardLeftValue) {
+  int val = 10;
+  int& rval = val;
+  bool is_same =
+      gotostl::is_same_v<int&,
+                         decltype(gotostl::forward<decltype(rval)>(rval))>;
+  EXPECT_TRUE(is_same);
+}
+
 }  // namespace test_goto_stl

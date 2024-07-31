@@ -281,5 +281,31 @@ struct conditional<false, T1, T2> {
 
 template <bool cond, typename T1, typename T2>
 using conditional_t = typename conditional<cond, T1, T2>::type;
+
+template <typename T>
+struct add_rvalue_reference {
+  typedef T&& type;
+};
+
+template <typename T>
+using add_rvalue_reference_t = typename add_rvalue_reference<T>::type;
+
+template <typename T>
+typename add_rvalue_reference<T>::type declval() noexcept;
+
+template <typename T>
+constexpr typename remove_reference<T>::type&& move(T&& t) {
+  return static_cast<typename remove_reference<T>::type&&>(t);
+}
+
+template <typename T>
+constexpr T&& forward(typename remove_reference<T>::type& t) {
+  return static_cast<T&&>(t);
+}
+
+template <typename T>
+constexpr T&& forward(typename remove_reference<T>::type&& t) {
+  return static_cast<T&&>(t);
+}
 };  // namespace gotostl
 #endif
